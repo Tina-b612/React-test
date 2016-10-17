@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+	    <script type="text/babel">
+	    	
+	    	/*
+	    	 * input 、 textarea 、 select 、 radio 等
+	    	 * 文本框输入的值不能用this.props.value来获取到
+	    	 * 需要定义回调函数，通过e.target.value 来读取用户输入的值
+	    	 */
+	    	
+	    	var Input = React.createClass({
+	    		/*初始化状态*/
+	    		getInitialState(){
+	    			return {value: "Hello!"}
+	    		},
+	    		/*事件处理*/
+	    		handleChange(e){
+	    			this.setState({value: e.target.value});
+	    		},
+	    		/*结构*/
+	    		render(){
+	    			var value = this.state.value;
+	    			return (
+	    				<div>
+	    					<input type="text" 
+	    						value={value} 
+	    						onChange={this.handleChange} />
+	    						{/*绑定事件处理函数*/}
+	    					<p>{value}</p>
+	    				</div>
+	    			)
+	    		}
+	    	})
+	    	
+	    	ReactDOM.render(
+	    		<Input />,
+	    		document.getElementById('example')
+	    	)
+	    	
+	    	
+	    </script>
+	</body>
+</html>

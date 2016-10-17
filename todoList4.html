@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>React.js 初体验</title>
+		<link rel="stylesheet" type="text/css" href="./todolist/css/base.css">
+    	<link rel="stylesheet" type="text/css" href="./todolist/css/index.css">
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="tools.js" type="text/javascript" charset="utf-8"></script>
+		<script src="controller.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<section class="todoapp"></section>
+<script type="text/babel">
+	
+	
+	/* 初始化数据  */
+	var ItemComponet = React.createClass({
+		render(){
+			return <li className={classNames({
+						completed:this.props.isChecked
+					})}>
+				<div className="view">
+                    <input 
+                    	className="toggle" 
+                    	type="checkbox"
+                    	checked={this.props.isChecked}
+                    	onChange={this.changeHandle}
+                     />
+                    <label>{this.props.title}</label>
+                    <button className="destroy" onClick={this.clickHandle}></button>
+                </div>
+			</li>
+		},
+		clickHandle(){
+			this.props.deleteItem(this.props.id)
+		},
+		changeHandle(){
+			this.props.toggleItem(this.props.id)
+		}
+	})
+	
+	var Main = React.createClass({
+		render(){
+			var data = this.props.data;
+			var content,footer,n = 0,len = data.length;
+			
+			
+			if(len !== 0){
+				
+				data.forEach(function (item){
+					if(item.isChecked){
+						n++;
+					}
+				})
+				
+				content = 
+				<section className="main">
+	                <input 
+	                	className="toggle-all" 
+	                	type="checkbox" 
+	                	checked={n === len}
+	                	onChange={this.toggleAllItem}
+	                />
+	                <ul className="todo-list">
+	                    {
+	                    	data.map(function (item,index){
+	                    		return <ItemComponet 
+	                    				key={index}
+	                    				{...item}
+	                    				deleteItem = {this.mainDeleteItem}
+	                    				toggleItem = {this.mainToggoleItem}
+	                    			/>
+	                    	}.bind(this))
+	                    }
+	                </ul>
+	           </section>
+	            
+	            footer = 
+	            <footer class="footer">
+		            <span class="todo-count">
+		            	<strong>{len-n}</strong>
+		            	<span>条未选中</span>
+		            </span>
+	            </footer>
+			}
+			
+			return (	
+			<div>
+				<header class="header" >
+	                <h1>todos</h1>
+	                <input 
+	                	className="new-todo" 
+	                	placeholder="请输入内容" 
+	                	onKeyDown={this.downHandle}/>
+	           </header>
+	           {content}
+	       		{footer}
+			</div>
+			)
+		},
+		downHandle(ev){
+			if(ev.keyCode === 13){
+				var val = ev.target.value;
+				
+				this.props.addItem(val);
+				
+				ev.target.value = "";
+			}
+		},
+		mainDeleteItem(id){
+			this.props.deleteItem(id);
+		},
+		mainToggoleItem(id){
+			this.props.toggoleItem(id);
+		},
+		toggleAllItem(ev){
+			var checked = ev.target.checked;
+			this.props.toggleAllItem(checked);
+		}
+	})
+	
+	function render(){
+		ReactDOM.render(
+			<Main data={data} {...controller}/>,
+			document.getElementsByClassName("todoapp")[0]
+		)
+	}
+	
+	render();
+	controller.render = render;
+	
+</script>
+	</body>
+</html>

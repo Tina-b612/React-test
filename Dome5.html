@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+		<div id="example2"></div>
+	    <script type="text/babel">
+	    	
+	    	//this.props  属性的集合
+	    	
+	    	var obj1 = {
+	    		title:"我的好友",
+	    		list:[1,2,3]
+	    	}
+	    	var obj2 = {
+	    		title:"123"
+	    	}
+	    	
+	    	var List = React.createClass({
+	    		render(){
+	    			return 	<ul>
+			    				{
+			    					this.props.list.map(function (item,index){
+			    						return	<li key={index}>{item}</li>
+			    					})
+			    				}
+			    			</ul>
+	    		}
+	    	})
+	    	
+	    	var Hello = React.createClass({
+	    		propTypes:{
+	    			title:React.PropTypes.string
+	    		},
+	    		getDefaultProps(){
+	    			return {
+	    				title: "默认标题",
+	    				list: ["默认数据"]
+	    			}
+	    		},
+	    		render: function (){
+	    			var list = this.props.list;
+	    			return 	<div>
+	    						<h1>{this.props.title}</h1>
+	    						{this.props.children}
+	    						<List list={list} />
+	    					</div>
+	    		}
+	    	})
+	    	
+	    	
+	    	
+	    	ReactDOM.render(
+			  	<Hello {...obj1}>
+			  		<p>这是副标题</p>
+			  	</Hello>,
+			  	document.getElementById('example')
+			);
+			ReactDOM.render(
+			  	<Hello {...obj2}/>,
+			  	document.getElementById('example2')
+			);
+	    </script>
+	</body>
+</html>

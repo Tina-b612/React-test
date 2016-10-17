@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+	    <script type="text/babel">
+	    	
+	    	/*
+	    	 组件的生命周期 - 三个状态
+	    	 	Mounting：已插入真实 DOM  
+	    	 	Updating：正在被重新渲染
+	    	 	Unmounting：已移除真实 DOM
+	    	 处理函数
+	    	 	componentWillMount()   插入组件前
+				componentDidMount()    插入组件后
+				componentWillUpdate(object nextProps, object nextState)   重新渲染前
+				componentDidUpdate(object prevProps, object prevState)	  重新渲染后
+				componentWillUnmount() 移除组件前
+	    	 
+	    	 	componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
+				shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用
+	    	 
+	    	*/
+	    	
+	    	var Hello = React.createClass({
+	    		getInitialState(){
+	    			return {opacity: 1}
+	    		},
+	    		/* 插入组件后 */
+	    		componentDidMount(){
+	    			this.timer = setInterval(function () {
+	    				var opacity = this.state.opacity;
+	    				opacity -= .05;
+	    				if (opacity < 0.1) {
+	    					opacity = 1.0;
+	    				}
+	    				this.setState({
+	    					opacity: opacity
+	    				});
+	    			 }.bind(this), 100);
+	    		},
+	    		/*结构*/
+	    		render(){
+	    			return (
+	    				<div style={{opacity: this.state.opacity}}>
+	    					Hello {this.props.name}
+	    				</div>
+	    			)
+	    		}
+	    		
+	    		
+	    	})
+	    	
+	    	ReactDOM.render(
+	    		<Hello name="world" />,
+	    		document.getElementById('example')
+	    	)
+	    	
+	    	
+	    </script>
+	</body>
+</html>

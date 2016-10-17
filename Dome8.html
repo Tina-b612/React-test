@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+	    <script type="text/babel">
+	    	
+	    	/*
+	    	 * this.refs.[refName]  获取真实的DOM节点
+	    	 * 被获取的节点必须有 ref 属性 value为 [refName]
+	    	 */
+	    	
+	    	var MyComponent = React.createClass({
+	    		//设置事件处理函数
+	    		handleClick(){
+	    			this.refs.myTextInput.focus();
+	    			console.log(this.refs.myTextInput)
+	    		},
+	    		render(){
+	    			return (
+	    			<div>
+	    				{/*设置ref属性，以便之后被this.refs获取到*/}
+	    				<input type="text" ref="myTextInput" />
+	    				<input 
+	    					type="button" 
+	    					value= "Focus the text input" 
+	    					onClick= {this.handleClick}
+	    				 />
+	    					{/*调用事件处理函数*/}
+	    			</div>
+	    			)
+	    		}
+	    	})
+	    	
+	    	ReactDOM.render(
+	    		<MyComponent />,
+	    		document.getElementById('example')
+	    	)
+	    	
+	    	
+	    </script>
+	</body>
+</html>

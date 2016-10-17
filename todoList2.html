@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./todolist/css/base.css">
+    	<link rel="stylesheet" type="text/css" href="./todolist/css/index.css">
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="data.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<section class="todoapp"></section>
+<script type="text/babel">
+	
+	/* 初始化数据  */
+	var ItemComponet = React.createClass({
+		render(){
+			return <li className="">
+				<div className="view">
+                    <input className="toggle" type="checkbox" />
+                    <label>{this.props.title}</label>
+                    <button className="destroy"></button>
+                </div>
+			</li>
+		}
+	})
+	
+	var Main = React.createClass({
+		render(){
+			var data = this.props.data;
+			var content,footer;
+			
+			if(data.length !== 0){
+				content = 
+				<section className="main">
+	                <input className="toggle-all" type="checkbox" checked=""/>
+	                <ul className="todo-list">
+	                    {
+	                    	data.map(function (item,index){
+	                    		return <ItemComponet 
+	                    				key={index}
+	                    				{...item}
+	                    			/>
+	                    	})
+	                    }
+	                </ul>
+	           </section>
+	            
+	            footer = 
+	            <footer class="footer">
+		            <span class="todo-count">
+		            	<strong>0</strong>
+		            	<span>条未选中</span>
+		            </span>
+	            </footer>
+			}
+			
+			return (	
+			<div>
+				<header class="header" >
+	                <h1>todos</h1>
+	                <input className="new-todo" placeholder="请输入内容" value=""/>
+	           </header>
+	           {content}
+	       		{footer}
+			</div>
+	       	
+			)
+		}
+	})
+	
+	ReactDOM.render(
+		<Main data={data} />,
+		document.getElementsByClassName("todoapp")[0]
+	)
+	
+	
+	
+	
+</script>
+	</body>
+</html>

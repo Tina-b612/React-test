@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+		<div id="example2"></div>
+	    <script type="text/babel">
+	    	
+	    	//this.props  属性的集合
+	    	//组件的属性可以接受任何数据类型的值
+	    	
+	    	/*
+	    	 * 组件类的属性 PropTypes  用来验证组件实例的属性是否符合要求
+	    	 * 组件的方法 getDefaultProps 用来设置属性的默认值
+	    	*/
+	    	
+	    	
+	    	var obj1 = {
+	    		title:"我的好友",
+	    		list:[1,2,3]
+	    	}
+	    	var obj2 = {
+	    		title:"123"
+	    	}
+	    	//定义一个组件
+	    	var List = React.createClass({
+	    		//写入以下结构
+	    		render(){
+	    			return 	<ul>
+			    				{
+			    					//使用map遍历list
+			    					this.props.list.map(function (item,index){
+			    						return	<li key={index}>{item}</li>
+			    					})
+			    				}
+			    			</ul>
+	    		}
+	    	})
+	    	
+	    	var Hello = React.createClass({
+	    		//验证参数
+	    		propTypes:{
+	    			title:React.PropTypes.string
+	    		},
+	    		//默认参数
+	    		getDefaultProps(){
+	    			return {
+	    				title: "默认标题",
+	    				list: ["默认数据"]
+	    			}
+	    		},
+	    		//写入以下结构
+	    		render: function (){
+	    			var list = this.props.list;
+	    			return 	<div>
+	    						<h1>{this.props.title}</h1>
+	    						{/*自定义子结构*/}
+	    						{this.props.children}
+	    						<List list={list} />
+	    					</div>
+	    		}
+	    	})
+	    	
+	    	
+	    	
+	    	ReactDOM.render(
+	    	//传入数据
+			  	<Hello {...obj1}>  {/*调用Hello组件*/}
+			  		<p>这是副标题</p>	{/*自定义子结构*/}
+			  	</Hello>,
+			  	document.getElementById('example')	//放进DOM容器中
+			);
+			ReactDOM.render(
+			  	<Hello {...obj2}/>,
+			  	document.getElementById('example2')
+			);
+	    </script>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+		<div id="example2"></div>
+	    <script type="text/babel">
+	    	
+	    	//this.props  属性的集合
+	    	
+	    	var title1 = "我的好友";
+	    	var list1 = [1,2,3]
+	    	
+	    	var title2 = "黑名单";
+	    	var list2 = [9,8,7]
+	    	
+	    	
+	    	
+	    	var Hello = React.createClass({
+	    		render: function (){
+	    			return 	<div>
+	    						<h1>hello {this.props.title}</h1>
+	    						<ul>
+	    							{
+	    								
+	    							}
+	    						</ul>
+	    					</div>
+	    		}
+	    	})
+	    	
+	    	
+	    	
+	    	ReactDOM.render(
+			  	<Hello title={title1} list={list1}/>,
+			  	document.getElementById('example')
+			);
+			ReactDOM.render(
+			  	<Hello title={title2} list={list2}/>,
+			  	document.getElementById('example2')
+			);
+	    </script>
+	</body>
+</html>

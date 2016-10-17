@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="build/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="build/browser.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="example"></div>
+	    <script type="text/babel">
+	    	
+	    	/*
+	    	 * getInitialState()  初始化状态
+	    	 * this.setState()    更改状态,更改后自动调用this.render方法，重新渲染组件
+	    	 * this.state.[key]  读取状态
+	    	 
+	    	 
+	    	 
+	    	 */
+	    	
+	    	var LikeButton = React.createClass({
+	    		//初始化状态
+	    		getInitialState(){
+	    			/*初始化状态，返回一个对象*/
+	    			return {liked: false};
+	    		},
+	    		/* 事件处理函数 */
+	    		handleClick(){
+	    			/*更改状态为取反*/
+	    			this.setState({liked: !this.state.liked});
+	    		},
+	    		/* 结构*/
+	    		render(){
+	    			var text = this.state.liked ? "like" : "haven\'t liked";
+	    			return (
+	    				<p onClick = {this.handleClick}>
+	    					You {text} this. Click to toggle
+	    				</p>
+	    			)
+	    		}
+	    	})
+	    	
+	    	ReactDOM.render(
+	    		<LikeButton />,
+	    		document.getElementById('example')
+	    	)
+	    	
+	    	
+	    </script>
+	</body>
+</html>
